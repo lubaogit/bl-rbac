@@ -1,0 +1,61 @@
+<configuration>
+	<property name="LOG_ROOT" value="/opt/logs/bl-rbac/bl-rbac-api" />
+	<property name="LOG_FILENAME" value="bl-rbac-api" />
+	<property name="LOG_MAXFILESIZE" value="50MB" />
+	<property name="LOG_MAXHISTORY" value="30" />
+	<property name="LOG_PATTERN"
+			  value="%date{ISO8601} %-5level [%thread] %class.%method\\(%line\\) - %msg%n" />
+	<springProperty scope="context" name="APP_NAME" source="spring.application.name" />
+	<springProperty scope="context" name="ENV" source="spring.profiles.active" />
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>${LOG_PATTERN}</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="RFA"
+			  class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_ROOT}/${LOG_FILENAME}.log</file>
+
+		<rollingPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_ROOT}/${LOG_FILENAME}-%d{yyyyMMdd}-%i.log
+			</fileNamePattern>
+			<maxFileSize>${LOG_MAXFILESIZE}</maxFileSize>
+			<maxHistory>${LOG_MAXHISTORY}</maxHistory>
+		</rollingPolicy>
+
+		<encoder class="net.logstash.logback.encoder.LogstashEncoder"
+			charset="UTF-8">
+			<customFields>{"application_name":"${APP_NAME}","env":"${ENV}"}</customFields>
+		</encoder>
+	</appender>
+
+	<logger name="org.springframework" level="warn" />
+	<logger name="org.apache.commons" level="warn" />
+	<logger name="org.apache.http" level="warn" />
+	<logger name="springfox.documentation" level="warn" />
+	<logger name="com.netflix" level="warn" />
+	<logger name="org.hibernate.validator.internal" level="warn" />
+
+	<logger name="org.apache.ibatis.logging" level="warn" />
+	<logger name="org.mybatis.spring" level="warn" />
+	<logger name="com.alibaba.druid" level="warn" />
+
+	<logger name="io.netty" level="info" />
+	<logger name="io.lettuce.core" level="info" />
+
+	<logger name="com.github.tobato.fastdfs" level="warn" />
+
+	<logger name="org.jxls.area.XlsArea" level="info" />
+	<logger name="org.apache.commons.jexl2" level="error" />
+
+	<logger name="com.bl.rbac" level="debug" />
+
+	<root level="debug">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="RFA" />
+	</root>
+
+</configuration>
