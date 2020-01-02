@@ -60,11 +60,9 @@ public class RbacScanRegister implements ImportAware {
      */
     @PostConstruct
     protected void doScan() throws IOException {
-
         if(StringUtils.isEmpty(scope)){
             throw new IllegalArgumentException("bl.rbac.scope 不能为空");
         }
-
         log.info("RBAC开始扫描....");
         AnnotationAttributes annotationAttributes = AnnotationAttributes.fromMap(
                 metadata.getAnnotationAttributes(RbacScan.class.getName()));
@@ -82,7 +80,7 @@ public class RbacScanRegister implements ImportAware {
         }
         boolean sync= annotationAttributes.getBoolean("sync");
         if(!sync){
-            //不同步
+            log.info("设置不需要同步....");
             return;
         }
 

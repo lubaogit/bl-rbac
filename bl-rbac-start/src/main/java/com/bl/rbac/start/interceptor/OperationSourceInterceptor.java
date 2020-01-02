@@ -40,8 +40,6 @@ public class OperationSourceInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
-
-
         log.info("请求进入拦截器....进行鉴权操作..");
         //校验rbacScan扫描的包为空说明不需要权限验证 直接返回
         if(packages.isEmpty()){
