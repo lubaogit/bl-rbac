@@ -15,6 +15,7 @@
 
 
     <modules>
+        <module>bl-rbac-eureka</module>
         <module>bl-rbac-common</module>
         <module>bl-rbac-util</module>
         <module>bl-rbac-start</module>

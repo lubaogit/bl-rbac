@@ -50,4 +50,7 @@ public class UserInfoController {
         log.info("用户信息：{}",JSON.toJSONString(userEntity));
         return JSON.toJSONString(userEntity);
     }
+
+
+    //试试
 }
